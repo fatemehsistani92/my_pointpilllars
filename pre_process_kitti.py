@@ -54,6 +54,9 @@ def create_data_info_pkl(data_root, data_type, prefix, label=True, db=False):
         cur_info_dict['velodyne_path'] = sep.join(lidar_path.split(sep)[-3:])
 
         img = cv2.imread(img_path)
+        if img is None:
+            print(f"Warning: Skipping corrupted or missing image: {img_path}")
+            continue
         image_shape = img.shape[:2]
         cur_info_dict['image'] = {
             'image_shape': image_shape,
